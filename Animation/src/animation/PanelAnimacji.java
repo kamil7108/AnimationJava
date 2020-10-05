@@ -18,26 +18,12 @@ import javax.swing.*;
 public class PanelAnimacji extends JPanel{
     
     public void addKropelka()
-        {
+        {   
+            listaKropelek.add(new Kropelka()); 
             
-            listaKropelek.add(new Kropelka());
-            for (int i = 0; i < 25; i++)
-            {
-                for(int j = 0; j < listaKropelek.size(); j++)
-                {
-                    ((Kropelka)listaKropelek.get(j)).move(this);
-                    this.paint(this.getGraphics());
-                    try 
-                    {
-                        Thread.sleep(10);
-                    } 
-                    catch (InterruptedException ex) 
-                    {
-                        System.out.println(ex.getMessage());
-                    }
-                }
-                
-            }
+            Thread watek = new Thread(grupaWatkow,new KropelkaRunnable((Kropelka)listaKropelek.get(listaKropelek.size()-1)));
+            watek.start();
+           
         }
         
         @Override
@@ -50,6 +36,45 @@ public class PanelAnimacji extends JPanel{
                 g.drawImage(Kropelka.getImage(), ((Kropelka)listaKropelek.get(i)).getX(), ((Kropelka)listaKropelek.get(i)).getY(), null);
             }
         }
+
+    void stop() {
+        grupaWatkow.interrupt();
+    }
+        
+        public class KropelkaRunnable implements Runnable{
+        private final Kropelka kropelka;
+        
+        
+        public KropelkaRunnable(Kropelka k) {
+        kropelka=k;
+        }
+
+        
+        @Override
+        public void run() {
+           
+               
+                   
+                    try 
+                    { while(!Thread.currentThread().isInterrupted()){
+                        kropelka.move(ten);
+                        repaint();
+                        Thread.sleep(10);}
+                    } 
+                    catch (InterruptedException ex) 
+                    {
+                        listaKropelek.clear();
+                        repaint();
+                    }
+                
+                
+            }
+        }
+   
+        JPanel ten =this;
         ArrayList listaKropelek = new ArrayList();
+        ThreadGroup grupaWatkow=new ThreadGroup("Grupa watkow");
+      
+       
     }
 

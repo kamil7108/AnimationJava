@@ -23,10 +23,17 @@ Animation(){
     this.setBounds(275, 300, 250, 250);
     this.setVisible(true);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    panelPrzycisku.add(stop);
     panelPrzycisku.add(start);
     panelAnimacji.setBackground(Color.GRAY);
     this.getContentPane().add(panelPrzycisku,BorderLayout.SOUTH);
     this.getContentPane().add(panelAnimacji);
+    stop.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panelAnimacji.stop();
+        }
+    });
     start.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -39,11 +46,15 @@ Animation(){
 }
     public static void main(String[] args) {
         new Animation();
+       
+        
     }
 private JPanel panelPrzycisku=new JPanel();
 private PanelAnimacji panelAnimacji=new PanelAnimacji();
 private JButton start=new JButton("Start");
+private JButton stop=new JButton("Stop");
 }
 
+class A {}
 
 
