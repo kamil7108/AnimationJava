@@ -25,6 +25,7 @@ Animation(){
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     panelPrzycisku.add(stop);
     panelPrzycisku.add(start);
+    panelPrzycisku.add(dodaj);
     panelAnimacji.setBackground(Color.GRAY);
     this.getContentPane().add(panelPrzycisku,BorderLayout.SOUTH);
     this.getContentPane().add(panelAnimacji);
@@ -34,13 +35,16 @@ Animation(){
             panelAnimacji.stop();
         }
     });
-    start.addActionListener(new ActionListener() {
+    dodaj.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             panelAnimacji.addKropelka();
-            
-        
-           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    });
+    start.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panelAnimacji.startAnimation();
         }
     });
 }
@@ -53,6 +57,7 @@ private JPanel panelPrzycisku=new JPanel();
 private PanelAnimacji panelAnimacji=new PanelAnimacji();
 private JButton start=new JButton("Start");
 private JButton stop=new JButton("Stop");
+private JButton dodaj=new JButton("Dodaj");
 }
 
 class A {}
